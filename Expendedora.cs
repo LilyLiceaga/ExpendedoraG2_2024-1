@@ -63,6 +63,13 @@ namespace ExpendedoraG2_2024_1
             LimpiarDisplay();
             MostrarPrecio(codigo);
         }
+
+        public Expendedora(bool Mantenimiento)
+        {
+            if(Mantenimiento == true)
+                Console.WriteLine("Entrando en modo manenimiento... ");
+        }
+
         #endregion
 
     }
