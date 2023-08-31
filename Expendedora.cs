@@ -10,13 +10,13 @@ namespace ExpendedoraG2_2024_1
         #region Atributos
         private string marca;
         private ushort cantidadProductos;
-        private byte temperatura;
+        internal byte temperatura; //internal ?
         private float precio;
         #endregion
 
         #region Property
 
-        public byte Temperatura 
+        public virtual byte Temperatura 
         { 
             get => temperatura; 
             set
@@ -29,6 +29,21 @@ namespace ExpendedoraG2_2024_1
         }
 
         public string Marca { get => marca; set => marca = value; }
+        public float Precio
+        {
+            get => precio;
+            set
+            {
+                if (value < 0 )
+                {
+                    precio = 10;
+                }
+                else
+                {
+                    precio = value;
+                }
+            }
+        }
         #endregion
 
         #region Metodos
@@ -41,23 +56,24 @@ namespace ExpendedoraG2_2024_1
             Thread.Sleep(2000); //milisegundos
             Console.Clear();
         }
-        public string MostrarProducto()
+        public virtual string MostrarProducto() //virtual?
         {
+            string codigo = "";
             Console.WriteLine(" 3A: Doritos \n 3B: Churrumais ");
             Console.WriteLine("Ingresa el código del producto");
-            string codigo = Console.ReadLine(); //VARIABLE LOCAL, no tiene valor por default. Siempre se debe inicializar.
+            codigo = Console.ReadLine(); //VARIABLE LOCAL, no tiene valor por default. Siempre se debe inicializar.
 
             return codigo;
         }
-        public void MostrarPrecio(string codigo)
+        public virtual void MostrarPrecio(string codigo)
         {
             switch (codigo)
             {
                 case "3A":
-                    Console.WriteLine("Precio: ${0}", precio);
+                    Console.WriteLine("Precio: ${0}", Precio);
                     break;
                 case "3B":
-                    Console.WriteLine("Precio: ${0}", precio-6);
+                    Console.WriteLine("Precio: ${0}", Precio-6);
                     break;
                 default:
                     Console.WriteLine("No ingresaste producto válido");
@@ -71,15 +87,10 @@ namespace ExpendedoraG2_2024_1
         public Expendedora()
         {
             Marca = "AMS";
-            precio = 18;
+            Precio = 18;
             Saludar();
             LimpiarDisplay();
-            Console.WriteLine("Marca: {0}", Marca);
-            LimpiarDisplay();
 
-            string codigo = MostrarProducto();
-            LimpiarDisplay();
-            MostrarPrecio(codigo);
         }
 
         public Expendedora(bool Mantenimiento)
@@ -93,10 +104,10 @@ namespace ExpendedoraG2_2024_1
             {
                 Temperatura++;
             }
-            Console.WriteLine("Mostrando Temperatura: " + Temperatura + " °c");
+            Console.WriteLine("Mostrando Temperatura: " + Temperatura + " [°C]");
         }
 
         #endregion
 
     }
-}
+} 
